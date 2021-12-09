@@ -1,0 +1,39 @@
+
+
+<p id="notice"><%= notice %></p>
+  
+<h1>Orders</h1>
+<%= pie_chart Order.group(:status).count %>
+<%= javascript_include_tag "https://www.google.com/jsapi" %>
+<%= wicked_pdf_javascript_include_tag "chartkick" %>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Price</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.price %></td>
+        <td><%= order.status %></td>
+        
+        <td><%= link_to 'Show', order %></td>
+        <td><%= link_to 'Edit', edit_order_path(order) %></td>
+        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Order', new_order_path %>
+<%= link_to "PDF", orders_path(format: :pdf) %>
+
+

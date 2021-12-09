@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChartApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %> 
+    <%= wicked_pdf_javascript_include_tag "chartkick" %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!--<%= wicked_pdf_stylesheet_link_tag "pdf" %>-->    
+    <%= wicked_pdf_stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag wicked_pdf_asset_base64('pdf') %>
+    <%= line_chart data, code: true %>
+    <%= line_chart data, download: true %>
+    <%= line_chart data, adapter: "google" %> <!-- or highcharts or chartjs -->
+    pdf = WickedPdf.new.pdf_from_html_file('/app/views/layouts.pdf.html.erb')
+
+    <span class="token operator">&lt;</span> <span class="token operator">%</span> <span class="token operator">=</span> javascript_include_tag <span class="token string">"https://www.gstatic.com/charts/loader.js"</span> <span class="token operator">%</span> <span class="token operator">&gt;</span>
+
+    <%= javascript_include_tag "http://code.jquery.com/jquery-1.10.0.min.js" %>
+    <%= javascript_include_tag "http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" %>
+
+    <%= wicked_pdf_javascript_include_tag "number_pages" %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartkick/1.3.0/chartkick.js" integrity="sha512-/S3IGIapKNaHP6+gydb+l9AOa71K9g9VtV8jYVkC0VW5MaeCpWDx1mtJ/prXuSAZbGRqCGbzJ8EWzgtIOfnVcw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+
+    
+    </head>
+
+    <body>
+        <% if user_signed_in? %>
+          <a href="/users/sign_out"><span>SignOut</span></a>
+        <% else %>
+          <a href="/users/sign_up"><span>SignUp</span></a>
+        <%end%>
+       <%= yield%>
+   </body>
+  </html>
